@@ -4,5 +4,6 @@ public enum ClipboardEntryKindEnum : byte
 {
     Plain,
     Password,
+    Link,
     Image
 }

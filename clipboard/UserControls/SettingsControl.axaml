@@ -41,6 +41,8 @@
             <TextBlock Text="Эксперименты" FontWeight="Bold" Margin="0,16,0,0" />
             <CheckBox Content="Удалять элемент из истории после вставки"
                       IsChecked="{Binding Settings.AutoRemoveAfterPaste}" />
+            <CheckBox Content="Отображать пароль при наведении"
+                      IsChecked="{Binding Settings.ShowPasswordOnHover}" />
 
             <!-- Кнопки -->
             <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,16,0,0">

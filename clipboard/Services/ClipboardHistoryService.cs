@@ -27,7 +27,7 @@ public sealed class ClipboardHistoryService(IMessageLoopWindow msgWin, IStorageS
         
         var saved = storage.LoadAll();
         foreach (var e in saved)
-            Items.Insert(0, e);
+            Items.Add(e);
     }
 
     public void SetClipboard(ClipboardEntry e)
@@ -102,7 +102,7 @@ public sealed class ClipboardHistoryService(IMessageLoopWindow msgWin, IStorageS
 
         if (passwords.IsProbablyPassword(entry.Content))
         {
-            entry.SetKindPassword();
+            entry.Kind = ClipboardEntryKindEnum.Password;
         }
         
         AddItem(entry);

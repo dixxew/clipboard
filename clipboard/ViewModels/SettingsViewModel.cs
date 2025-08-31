@@ -7,7 +7,7 @@ using CommunityToolkit.Mvvm.Input;
 
 namespace clipboard.ViewModels;
 
-public class SettingsViewModel(ISettingsService settingsService) : ViewModelBase
+public class SettingsViewModel(ISettingsService settingsService, PresentationService presentation) : ViewModelBase
 {
     public AppSettings Settings => settingsService.Settings;
 
@@ -15,5 +15,6 @@ public class SettingsViewModel(ISettingsService settingsService) : ViewModelBase
     public void Save()
     {
         settingsService.Save();
+        presentation.CloseOverlay();
     }
 }

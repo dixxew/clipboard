@@ -3,6 +3,8 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.RegularExpressions;
+using clipboard.Enum;
 using clipboard.Interfaces;
 using clipboard.Models;
 using clipboard.Models.ML;
@@ -35,6 +37,15 @@ public class PasswordService : IPasswordService
         if (s.Contains(' ')) return false;
         if (s.All(char.IsLetter)) return false;
         
+        if (Uri.TryCreate(s, UriKind.Absolute, out var uri) && uri.IsAbsoluteUri)
+            return false;
+        
+        if (Regex.IsMatch(s, @"^\w+=""[^""]+""$"))
+            return false;
+
+        if (Regex.IsMatch(s, @"^\w+=.+$"))
+            return false;
+        
         var prediction = _predictor.Predict(new PasswordInput { Text = s });
 
         // Можно поиграться с порогом, 0.7–0.8 — норм
@@ -63,11 +74,10 @@ public class PasswordService : IPasswordService
 
         var res = new ClipboardEntry
         {
+            Kind = ClipboardEntryKindEnum.Password,
             Content = password,
             CreatedAt = DateTime.Now
         };
-        
-        res.SetKindPassword();
         
         return res;
     }

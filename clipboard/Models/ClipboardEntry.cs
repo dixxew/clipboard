@@ -1,6 +1,8 @@
 ﻿using System;
 using clipboard.Enum;
+using clipboard.Services;
 using clipboard.ViewModels;
+using Newtonsoft.Json;
 
 namespace clipboard.Models;
 
@@ -10,13 +12,38 @@ public sealed class ClipboardEntry : ViewModelBase
     public ClipboardEntryKindEnum Kind
     {
         get => _kind;
-        private set
+        set
         {
             SetProperty(ref _kind, value);
             OnPropertyChanged(nameof(Preview));
+            OnPropertyChanged(nameof(IsPassword));
+            OnPropertyChanged(nameof(IsLink));
+            OnPropertyChanged(nameof(IsImage));
         }
     }
-
+    
+    public bool IsPassword => Kind == ClipboardEntryKindEnum.Password;
+    public bool IsLink => Kind == ClipboardEntryKindEnum.Link;
+    public bool IsImage => Kind == ClipboardEntryKindEnum.Image;
+    
+    private bool _isHovered;
+    [JsonIgnore]
+    public bool IsHovered
+    {
+        get => _isHovered;
+        set
+        {
+            SetProperty(ref _isHovered, value);
+            OnPropertyChanged(nameof(EffectivePreview));
+        }
+    }
+    
+    [JsonIgnore]
+    public string EffectivePreview =>
+        Kind != ClipboardEntryKindEnum.Password
+            ? Preview
+            : (IsHovered && GlobalReadonlySettingValues.ShowPasswordOnHover == true ? Content : Preview);
+    
     private readonly string _content = string.Empty;
     public string Content
     {
@@ -54,11 +81,6 @@ public sealed class ClipboardEntry : ViewModelBase
     {
         get => _isPinned;
         set => SetProperty(ref _isPinned, value);
-    }
-
-    public void SetKindPassword()
-    {
-        Kind = ClipboardEntryKindEnum.Password;
     }
     
     private string GetPasswordPreview(string content)

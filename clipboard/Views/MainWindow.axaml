@@ -19,11 +19,17 @@
         Title="clipboard">
     <Window.Styles>
         <Style Selector="Button">
-            <Setter Property="CornerRadius" Value="7"></Setter>
+            <Setter Property="CornerRadius" Value="7"/>
+            <Setter Property="Padding" Value="8 7 8 7"/>
         </Style>
 
         <Style Selector="TextBox">
-            <Setter Property="CornerRadius" Value="7"></Setter>
+            <Setter Property="CornerRadius" Value="7"/>
+        </Style>
+        
+        
+        <Style Selector="i|Icon">
+            <Setter Property="FontSize" Value="16"/>
         </Style>
     </Window.Styles>
     <Design.DataContext>
@@ -54,17 +60,18 @@
                     </TextBox>
                 </DockPanel>
                 <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="4">
-                    <Button i:Attached.Icon="fa-solid fa-lock" Height="32" Command="{Binding GeneratePassword}" />
-                    <Button i:Attached.Icon="fa-solid fa-broom" Height="32" Command="{Binding ClearItems}" />
-                    <Button i:Attached.Icon="fa-solid fa-user" Height="32" Command="{Binding OpenUserWeb}" />
-                    <Button i:Attached.Icon="fa-solid fa-gear" Height="32" Command="{Binding ShowSettings}" />
-                    <Button i:Attached.Icon="fa-solid fa-xmark" Height="32" Background="#c94f4f"
+                    <Button i:Attached.Icon="fa-solid fa-lock" Command="{Binding GeneratePassword}"/>
+                    <Button i:Attached.Icon="fa-solid fa-broom" Command="{Binding ClearItems}" />
+                    <Button i:Attached.Icon="fa-solid fa-user" Command="{Binding OpenUserWeb}" />
+                    <Button i:Attached.Icon="fa-solid fa-gear" Command="{Binding ShowSettings}" />
+                    <Button i:Attached.Icon="fa-solid fa-xmark" Background="#c94f4f"
                             Command="{Binding HideWindow}" />
                 </StackPanel>
             </Grid>
             <Grid Row="2">
                 <!-- список -->
-                <ScrollViewer x:Name="ListPanel" Margin="8 0 8 8" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled">
+                <ScrollViewer x:Name="ListPanel" Margin="8 0 8 8" VerticalScrollBarVisibility="Hidden"
+                              HorizontalScrollBarVisibility="Disabled">
                     <ItemsControl ItemsSource="{Binding Items}">
                         <ItemsControl.ItemsPanel>
                             <ItemsPanelTemplate>

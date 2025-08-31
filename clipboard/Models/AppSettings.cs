@@ -1,4 +1,5 @@
-﻿using CommunityToolkit.Mvvm.ComponentModel;
+﻿using clipboard.Services;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace clipboard.Models;
 
@@ -16,4 +17,18 @@ public class AppSettings : ObservableObject
 
     public bool ClearHistoryOnExit { get; set; } = false;
     public bool AutoRemoveAfterPaste { get; set; } = false;
+    
+    private bool _showPasswordOnHover;
+    public bool ShowPasswordOnHover
+    {
+        get => _showPasswordOnHover;
+        set
+        {
+            if (SetProperty(ref _showPasswordOnHover, value))
+            {
+                GlobalReadonlySettingValues.ShowPasswordOnHover = value;
+            }
+        }
+    }
+
 }

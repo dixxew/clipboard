@@ -26,6 +26,9 @@ public partial class ClipboardItemControl : UserControl
         AddHandler(PointerPressedEvent, OnPointerPressed, RoutingStrategies.Tunnel);
         AddHandler(PointerMovedEvent, OnPointerMoved, RoutingStrategies.Tunnel);
         AddHandler(PointerReleasedEvent, OnPointerReleased, RoutingStrategies.Tunnel);
+        
+        this.PointerEntered += OnPointerEnter;
+        this.PointerExited += OnPointerLeave;
     }
     private void OpenActions()
     {
@@ -80,5 +83,17 @@ public partial class ClipboardItemControl : UserControl
         {
             vm.PasteCommand.Execute(entry);
         }
+    }
+    
+    private void OnPointerEnter(object? sender, PointerEventArgs e)
+    {
+        if (DataContext is ClipboardEntry entry)
+            entry.IsHovered = true;
+    }
+
+    private void OnPointerLeave(object? sender, PointerEventArgs e)
+    {
+        if (DataContext is ClipboardEntry entry)
+            entry.IsHovered = false;
     }
 }

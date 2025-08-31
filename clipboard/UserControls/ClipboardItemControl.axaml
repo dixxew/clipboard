@@ -14,9 +14,14 @@
     <Grid ColumnDefinitions="*,Auto" ClipToBounds="True">
         <Button MinHeight="60" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
             <Grid RowDefinitions="*,6,Auto">
-                <TextBlock FontSize="16" Text="{Binding Preview}" TextWrapping="Wrap"/>
-                <TextBlock Grid.Row="2" FontSize="12"
-                           Text="{Binding CreatedAt, StringFormat=HH:mm}" Opacity="0.6"/>
+                <TextBlock FontSize="16" Text="{Binding EffectivePreview}" TextWrapping="Wrap" />
+                <StackPanel Grid.Row="2" Spacing="8" Orientation="Horizontal">
+                    <TextBlock FontSize="12"
+                               Text="{Binding CreatedAt, StringFormat=HH:mm}" Opacity="0.6" />
+                    <i:Icon FontSize="12" Value="fa-solid fa-key" IsVisible="{Binding IsPassword}" Opacity="0.6" />
+                    <i:Icon FontSize="12" Value="fa-solid fa-link" IsVisible="{Binding IsLink}" Opacity="0.6" />
+                    <i:Icon FontSize="12" Value="fa-solid fa-image" IsVisible="{Binding IsImage}" Opacity="0.6" />
+                </StackPanel>
             </Grid>
         </Button>
 
@@ -28,20 +33,20 @@
                     Opacity="0"
                     IsHitTestVisible="False">
             <StackPanel.RenderTransform>
-                <TranslateTransform X="12"/>
+                <TranslateTransform X="12" />
             </StackPanel.RenderTransform>
             <StackPanel.Transitions>
                 <Transitions>
-                    <DoubleTransition Property="Width" Duration="0:0:0.2"/>
-                    <DoubleTransition Property="Opacity" Duration="0:0:0.2"/>
-                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.2"/>
+                    <DoubleTransition Property="Width" Duration="0:0:0.2" />
+                    <DoubleTransition Property="Opacity" Duration="0:0:0.2" />
+                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.2" />
                 </Transitions>
             </StackPanel.Transitions>
 
             <Button i:Attached.Icon="fa-solid fa-thumbtack" Width="28" Height="28"
                     Margin="8,0,0,0"
                     Command="{Binding $parent[Window].((vm:MainViewModel)DataContext).PinItem}"
-                    CommandParameter="{Binding}"/>
+                    CommandParameter="{Binding}" />
             <Button i:Attached.Icon="fa-solid fa-xmark" Width="28" Height="28"
                     Margin="8,0,0,0"
                     Command="{Binding $parent[Window].((vm:MainViewModel)DataContext).DeleteItem}"
