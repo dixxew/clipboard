@@ -1,0 +1,62 @@
+﻿# OS мусор
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE
+.vscode/
+.vs/
+.idea/
+*.suo
+*.user
+*.userosscache
+*.sln.iml
+_ReSharper*/
+*.DotSettings.user
+
+# билды/артефакты
+bin/
+obj/
+out/
+artifacts/
+TestResults/
+*.log
+*.tmp
+*.csv
+
+# генерилка
+*.g.cs
+*.g.i.cs
+
+# NuGet
+*.nupkg
+*.snupkg
+packages/
+
+# publish/рантайм-вывод
+publish*/
+*.deps.json
+*.runtimeconfig.json
+*.xml.gz
+
+# NativeAOT/линковка
+*.map
+*.r2rmap
+*.ni.dll
+*.ilk
+*.exp
+*.iobj
+*.ipdb
+*.pdb
+
+# локалки/секреты
+appsettings.Development.json
+appsettings.*.local.json
+*.local.json
+
+# инсталляторы/пакеты
+*.msi
+*.msix
+*.msixupload
+*.appx
+*.appxbundle

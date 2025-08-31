@@ -1,0 +1,52 @@
+<UserControl
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:clipboard.Models"
+    xmlns:vm="using:clipboard.ViewModels"
+    xmlns:i="https://github.com/projektanker/icons.avalonia"
+    x:DataType="vm:SettingsViewModel"
+    mc:Ignorable="d"
+    x:Class="clipboard.UserControls.SettingsControl">
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
+        <StackPanel Spacing="16" Margin="16">
+
+            <!-- Пароль -->
+            <TextBlock Text="Генератор паролей" FontWeight="Bold" />
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <TextBlock Text="Длина:" VerticalAlignment="Center" />
+                <NumericUpDown Minimum="4" Maximum="64"
+                               Value="{Binding Settings.PasswordLength}" />
+            </StackPanel>
+            <CheckBox Content="Буквы" IsChecked="{Binding Settings.PasswordIncludeLetters}" />
+            <CheckBox Content="Цифры" IsChecked="{Binding Settings.PasswordIncludeDigits}" />
+            <CheckBox Content="Спецсимволы" IsChecked="{Binding Settings.PasswordIncludeSpecial}" />
+
+            <!-- История -->
+            <TextBlock Text="История" FontWeight="Bold" Margin="0,16,0,0" />
+            <CheckBox Content="Сохранять историю" IsChecked="{Binding Settings.SaveHistory}" />
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <TextBlock Text="Макс. элементов:" VerticalAlignment="Center" />
+                <NumericUpDown Minimum="10" Maximum="1000"
+                               Value="{Binding Settings.MaxHistoryItems}" />
+            </StackPanel>
+            <CheckBox Content="Очищать при выходе" IsChecked="{Binding Settings.ClearHistoryOnExit}" />
+
+            <!-- Горячая клавиша -->
+            <TextBlock Text="Горячая клавиша" FontWeight="Bold" Margin="0,16,0,0" />
+            <TextBox Text="{Binding Settings.Hotkey}" />
+
+            <!-- Прикольное -->
+            <TextBlock Text="Эксперименты" FontWeight="Bold" Margin="0,16,0,0" />
+            <CheckBox Content="Удалять элемент из истории после вставки"
+                      IsChecked="{Binding Settings.AutoRemoveAfterPaste}" />
+
+            <!-- Кнопки -->
+            <StackPanel Orientation="Horizontal" Spacing="8" Margin="0,16,0,0">
+                <Button Content="Сохранить" Command="{Binding Save}" />
+            </StackPanel>
+
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

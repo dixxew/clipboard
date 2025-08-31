@@ -1,0 +1,112 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:clipboard.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:models="using:clipboard.Models"
+        xmlns:controls="using:clipboard.UserControls"
+        xmlns:i="https://github.com/projektanker/icons.avalonia"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="clipboard.Views.MainWindow" Width="420" Height="520"
+        x:DataType="vm:MainViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        CanResize="False"
+        ShowInTaskbar="False"
+        Background="Transparent"
+        SystemDecorations="None"
+        ClipToBounds="True"
+        Topmost="True"
+        Title="clipboard">
+    <Window.Styles>
+        <Style Selector="Button">
+            <Setter Property="CornerRadius" Value="7"></Setter>
+        </Style>
+
+        <Style Selector="TextBox">
+            <Setter Property="CornerRadius" Value="7"></Setter>
+        </Style>
+    </Window.Styles>
+    <Design.DataContext>
+        <vm:MainViewModel />
+    </Design.DataContext>
+    <Border Background="{DynamicResource SystemRegionBrush}"
+            CornerRadius="12"
+            Margin="8"
+
+            BoxShadow="0 0 10 -2 Black"
+            BorderThickness="1"
+            BorderBrush="{Binding IsActive,
+                                  RelativeSource={RelativeSource AncestorType=Window},
+                                  Converter={StaticResource WindowActiveToBorderBrushConverter}}">
+        <Grid RowDefinitions="Auto, 4, *">
+            <Grid ColumnDefinitions="*, 8, Auto" Margin="8 8 8 0">
+                <DockPanel>
+                    <i:Icon Margin="0 0 -36 0" Value="fa-solid fa-magnifying-glass"></i:Icon>
+                    <TextBox BorderThickness="0" Watermark="Поиск..." CornerRadius="8" Text="{Binding Query}">
+                        <TextBox.Styles>
+                            <Style Selector="TextBox /template/ TextPresenter#PART_TextPresenter">
+                                <Setter Property="Margin" Value="32,0,0,0" />
+                            </Style>
+                            <Style Selector="TextBox /template/ TextBlock#PART_Watermark">
+                                <Setter Property="Margin" Value="32,0,0,0" />
+                            </Style>
+                        </TextBox.Styles>
+                    </TextBox>
+                </DockPanel>
+                <StackPanel Grid.Column="2" Orientation="Horizontal" Spacing="4">
+                    <Button i:Attached.Icon="fa-solid fa-lock" Height="32" Command="{Binding GeneratePassword}" />
+                    <Button i:Attached.Icon="fa-solid fa-broom" Height="32" Command="{Binding ClearItems}" />
+                    <Button i:Attached.Icon="fa-solid fa-user" Height="32" Command="{Binding OpenUserWeb}" />
+                    <Button i:Attached.Icon="fa-solid fa-gear" Height="32" Command="{Binding ShowSettings}" />
+                    <Button i:Attached.Icon="fa-solid fa-xmark" Height="32" Background="#c94f4f"
+                            Command="{Binding HideWindow}" />
+                </StackPanel>
+            </Grid>
+            <Grid Row="2">
+                <!-- список -->
+                <ScrollViewer x:Name="ListPanel" Margin="8 0 8 8" VerticalScrollBarVisibility="Hidden" HorizontalScrollBarVisibility="Disabled">
+                    <ItemsControl ItemsSource="{Binding Items}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Spacing="8" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate x:DataType="models:ClipboardEntry">
+                                <controls:ClipboardItemControl />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </ScrollViewer>
+
+                <!-- оверлей -->
+                <Border Background="{DynamicResource SystemRegionBrush}"
+                        VerticalAlignment="Top" Padding="8" CornerRadius="0 0 12 12">
+                    <Border.RenderTransform>
+                        <ScaleTransform
+                            ScaleY="{Binding IsOverlayOpen, Converter={StaticResource OverlayStateToScaleConverter}}" />
+                    </Border.RenderTransform>
+                    <Border.Transitions>
+                        <Transitions>
+                            <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.25" />
+                        </Transitions>
+                    </Border.Transitions>
+                    <Grid>
+                        <ContentControl Content="{Binding OverlayContent}" />
+                        <Button Padding="4 2"
+                                FontSize="16"
+                                Height="32" Width="32"
+                                CornerRadius="18"
+                                i:Attached.Icon="fa-solid fa-angle-up"
+                                VerticalAlignment="Bottom"
+                                HorizontalAlignment="Right"
+                                Margin="0,0,0,8"
+                                Command="{Binding HideOverlay}" />
+                    </Grid>
+                </Border>
+
+            </Grid>
+
+        </Grid>
+    </Border>
+</Window>

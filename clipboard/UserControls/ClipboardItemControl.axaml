@@ -1,0 +1,51 @@
+<UserControl
+    xmlns="https://github.com/avaloniaui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:clipboard.Models"
+    xmlns:vm="using:clipboard.ViewModels"
+    xmlns:i="https://github.com/projektanker/icons.avalonia"
+    Background="Transparent"
+    mc:Ignorable="d"
+    x:DataType="models:ClipboardEntry"
+    x:Name="Root"
+    x:Class="clipboard.UserControls.ClipboardItemControl">
+    <Grid ColumnDefinitions="*,Auto" ClipToBounds="True">
+        <Button MinHeight="60" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+            <Grid RowDefinitions="*,6,Auto">
+                <TextBlock FontSize="16" Text="{Binding Preview}" TextWrapping="Wrap"/>
+                <TextBlock Grid.Row="2" FontSize="12"
+                           Text="{Binding CreatedAt, StringFormat=HH:mm}" Opacity="0.6"/>
+            </Grid>
+        </Button>
+
+        <StackPanel x:Name="Actions"
+                    Grid.Column="1"
+                    Orientation="Vertical"
+                    Spacing="4"
+                    Width="0"
+                    Opacity="0"
+                    IsHitTestVisible="False">
+            <StackPanel.RenderTransform>
+                <TranslateTransform X="12"/>
+            </StackPanel.RenderTransform>
+            <StackPanel.Transitions>
+                <Transitions>
+                    <DoubleTransition Property="Width" Duration="0:0:0.2"/>
+                    <DoubleTransition Property="Opacity" Duration="0:0:0.2"/>
+                    <TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.2"/>
+                </Transitions>
+            </StackPanel.Transitions>
+
+            <Button i:Attached.Icon="fa-solid fa-thumbtack" Width="28" Height="28"
+                    Margin="8,0,0,0"
+                    Command="{Binding $parent[Window].((vm:MainViewModel)DataContext).PinItem}"
+                    CommandParameter="{Binding}"/>
+            <Button i:Attached.Icon="fa-solid fa-xmark" Width="28" Height="28"
+                    Margin="8,0,0,0"
+                    Command="{Binding $parent[Window].((vm:MainViewModel)DataContext).DeleteItem}"
+                    CommandParameter="{Binding}" />
+        </StackPanel>
+    </Grid>
+</UserControl>
