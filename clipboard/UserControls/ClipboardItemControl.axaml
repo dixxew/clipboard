@@ -14,14 +14,35 @@
     <Grid ColumnDefinitions="*,Auto" ClipToBounds="True">
         <Button MinHeight="60" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
             <Grid RowDefinitions="*,6,Auto">
+                <Grid RowSpan="3" VerticalAlignment="Center">
+                    <Canvas IsHitTestVisible="False">
+                        <!-- Иконка-пароль -->
+                        <i:Icon Canvas.Right="16"
+                                Canvas.Top="-32"
+                                FontSize="64"
+                                Value="fa-solid fa-key"
+                                Opacity="0.07"
+                                IsVisible="{Binding IsPassword}" />
+
+                        <!-- Иконка-ссылка -->
+                        <i:Icon Canvas.Right="16"
+                                Canvas.Top="-32"
+                                FontSize="64"
+                                Value="fa-solid fa-link"
+                                Opacity="0.07"
+                                IsVisible="{Binding IsLink}" />
+
+                        <!-- Иконка-картинка -->
+                        <i:Icon Canvas.Right="16"
+                                Canvas.Top="-32"
+                                FontSize="64"
+                                Value="fa-solid fa-image"
+                                Opacity="0.07"
+                                IsVisible="{Binding IsImage}" />
+                    </Canvas>
+                </Grid>
                 <TextBlock FontSize="16" Text="{Binding EffectivePreview}" TextWrapping="Wrap" />
-                <StackPanel Grid.Row="2" Spacing="8" Orientation="Horizontal">
-                    <TextBlock FontSize="12"
-                               Text="{Binding CreatedAt, StringFormat=HH:mm}" Opacity="0.6" />
-                    <i:Icon FontSize="12" Value="fa-solid fa-key" IsVisible="{Binding IsPassword}" Opacity="0.6" />
-                    <i:Icon FontSize="12" Value="fa-solid fa-link" IsVisible="{Binding IsLink}" Opacity="0.6" />
-                    <i:Icon FontSize="12" Value="fa-solid fa-image" IsVisible="{Binding IsImage}" Opacity="0.6" />
-                </StackPanel>
+                <TextBlock Grid.Row="2" FontSize="12" Text="{Binding CreatedAt, StringFormat=HH:mm}" Opacity="0.6" />
             </Grid>
         </Button>
 
