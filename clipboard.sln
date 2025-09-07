@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "clipboard", "clipboard\clip
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "password-classifier", "password-classifier\password-classifier.csproj", "{8AE9B9D3-2862-4BB9-83A3-04F0B7EC2B87}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "clipboard-api", "clipboard-api\clipboard-api.csproj", "{6705AEB8-6FDB-40E8-9793-488AFBE206CB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{8AE9B9D3-2862-4BB9-83A3-04F0B7EC2B87}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8AE9B9D3-2862-4BB9-83A3-04F0B7EC2B87}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8AE9B9D3-2862-4BB9-83A3-04F0B7EC2B87}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6705AEB8-6FDB-40E8-9793-488AFBE206CB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6705AEB8-6FDB-40E8-9793-488AFBE206CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6705AEB8-6FDB-40E8-9793-488AFBE206CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6705AEB8-6FDB-40E8-9793-488AFBE206CB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

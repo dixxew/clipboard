@@ -76,7 +76,6 @@ public class MainViewModel : ViewModelBase
     public void PinItem(ClipboardEntry entry) => _clip.Pin(entry);
     public void DeleteItem(ClipboardEntry entry) => _clip.Remove(entry);
     
-    
     private void Paste(ClipboardEntry? entry)
     {
         if (entry != null)
@@ -85,5 +84,4 @@ public class MainViewModel : ViewModelBase
             _clip.SetClipboard(entry);
         }
     }
-
 }
