@@ -79,7 +79,11 @@ public class MainViewModel : ViewModelBase
     
     private void Paste(ClipboardEntry? entry)
     {
-        if (entry != null) _clip.SetClipboard(entry);
-        _window.Hide();
+        if (entry != null)
+        {
+            _window.Hide();
+            _clip.SetClipboard(entry);
+        }
     }
+
 }

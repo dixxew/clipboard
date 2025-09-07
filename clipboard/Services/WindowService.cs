@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using clipboard.Helpers;
 using clipboard.Interfaces;
+using clipboard.Interop;
 
 namespace clipboard.Services;
 
@@ -47,7 +48,6 @@ public sealed class WindowService : IWindowService
                 var cursorPos = CursorHelper.GetCursorPosition();
                 w.Position = new PixelPoint(cursorPos.X, cursorPos.Y + 10); // +10 чтобы окно не перекрывало курсор
                 w.Show();
-                w.Activate();
             }
         });
     }

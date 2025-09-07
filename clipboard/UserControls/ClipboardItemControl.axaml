@@ -12,7 +12,7 @@
     x:Name="Root"
     x:Class="clipboard.UserControls.ClipboardItemControl">
     <Grid ColumnDefinitions="*,Auto" ClipToBounds="True">
-        <Button MinHeight="60" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
+        <Button x:Name="clipEntry" MinHeight="60" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch">
             <Grid RowDefinitions="*,6,Auto">
                 <Grid RowSpan="3" VerticalAlignment="Center">
                     <Canvas IsHitTestVisible="False">

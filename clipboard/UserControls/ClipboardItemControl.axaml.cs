@@ -20,15 +20,16 @@ public partial class ClipboardItemControl : UserControl
         
         
         // ловим ховер всего UserControl
-        this.PointerEntered += (_, _) => OpenActions();
-        this.PointerExited += (_, _) => CloseActions();
+        PointerEntered += (_, _) => OpenActions();
+        PointerExited += (_, _) => CloseActions();
         
-        AddHandler(PointerPressedEvent, OnPointerPressed, RoutingStrategies.Tunnel);
-        AddHandler(PointerMovedEvent, OnPointerMoved, RoutingStrategies.Tunnel);
-        AddHandler(PointerReleasedEvent, OnPointerReleased, RoutingStrategies.Tunnel);
+        clipEntry.PointerPressed += OnPointerPressed;
+        clipEntry.PointerMoved += OnPointerMoved;
         
-        this.PointerEntered += OnPointerEnter;
-        this.PointerExited += OnPointerLeave;
+        clipEntry.Tapped += OnTapped;
+        
+        PointerEntered += OnPointerEnter;
+        PointerExited += OnPointerLeave;
     }
     private void OpenActions()
     {
@@ -52,13 +53,25 @@ public partial class ClipboardItemControl : UserControl
         _dragStarted = false;
     }
 
+    private void OnTapped(object? sender, RoutedEventArgs e)
+    {
+        if (_dragStarted) return;
+
+        if (DataContext is ClipboardEntry entry &&
+            (VisualRoot as Window)?.DataContext is MainViewModel vm &&
+            vm.PasteCommand.CanExecute(entry))
+        {
+            vm.PasteCommand.Execute(entry);
+        }
+    }
+    
     private async void OnPointerMoved(object? sender, PointerEventArgs e)
     {
-        if (_dragStarted)
+        if (_dragStarted || !e.GetCurrentPoint(null).Properties.IsLeftButtonPressed)
             return;
 
         var pos = e.GetPosition(null);
-        if (Math.Abs(pos.X - _dragStart.X) > 5 || Math.Abs(pos.Y - _dragStart.Y) > 5)
+        if (Math.Abs(pos.X - _dragStart.X) > 20 || Math.Abs(pos.Y - _dragStart.Y) > 20)
         {
             _dragStarted = true;
 
@@ -68,20 +81,9 @@ public partial class ClipboardItemControl : UserControl
                 data.Set(DataFormats.Text, entry.Content);
 
                 await DragDrop.DoDragDrop(e, data, DragDropEffects.Copy);
+                
+                _dragStarted = false;
             }
-        }
-    }
-    
-    private void OnPointerReleased(object? sender, PointerReleasedEventArgs e)
-    {
-        if (_dragStarted)
-            return;
-
-        if (DataContext is ClipboardEntry entry &&
-            (VisualRoot as Window)?.DataContext is MainViewModel vm &&
-            vm.PasteCommand.CanExecute(entry))
-        {
-            vm.PasteCommand.Execute(entry);
         }
     }
     

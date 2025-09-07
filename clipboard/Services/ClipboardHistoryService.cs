@@ -34,6 +34,11 @@ public sealed class ClipboardHistoryService(IMessageLoopWindow msgWin, IStorageS
     {
         Interlocked.Exchange(ref _ignoreNext, 1);
         Win32Clipboard.Write(e);
+        
+        Task.Delay(100).ContinueWith(async _ =>
+        {
+            await WinApi.SendCtrlV();
+        });
     }
 
     public void Clear()
