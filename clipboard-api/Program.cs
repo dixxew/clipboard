@@ -1,8 +1,11 @@
+using clipboard_api.Services;
 internal class Program
 {
     public static void Main(string[] args)
     {
         var builder = WebApplication.CreateBuilder(args);
+
+        builder.Services.AddSingleton<PasswordService>();
 
         builder.Services.AddControllers();
 
