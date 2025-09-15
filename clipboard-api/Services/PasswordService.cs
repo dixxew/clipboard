@@ -1,4 +1,8 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using clipboard_api.Models;
+
 
 namespace clipboard_api.Services;
 
@@ -22,4 +26,25 @@ public class PasswordService
         _passwords.Remove(item);
         return true;
     }
+
+    public PasswordItem? GetById(Guid id)
+    {
+        return _passwords.FirstOrDefault(X => X.Id == id);
+    }
+
+    public List<PasswordItem> GetByDate(DateTime date)
+    {
+        return _passwords
+            .Where(x => x.CreatedAt == date.Date)
+            .OrderByDescending(x => x.CreatedAt) // сортируем по времени от нового к старому
+            .ToList();
+    }
+    public List<PasswordItem> GetByDateRange(DateTime from, DateTime to)
+    {
+        return _passwords
+            .Where(x => x.CreatedAt >= from && x.CreatedAt <= to)
+            .OrderByDescending(x => x.CreatedAt)
+            .ToList();
+    }
+    
 }

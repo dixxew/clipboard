@@ -16,7 +16,7 @@ public class DataController : ControllerBase
     }
 
     [HttpGet]
-    public IActionResult GetPassword()
+    public IActionResult GetAllPassword()
     {
         return Ok(_passwordService.GetAll());
     }
